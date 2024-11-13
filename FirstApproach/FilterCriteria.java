@@ -1,3 +1,5 @@
+package FirstApproach;
+
 public class FilterCriteria {
     private String key;
     private Operator operator;

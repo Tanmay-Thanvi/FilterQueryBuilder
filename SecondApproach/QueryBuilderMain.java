@@ -1,14 +1,21 @@
+package SecondApproach;
+
+import FirstApproach.Filter;
+import FirstApproach.FilterCriteria;
+import FirstApproach.Operator;
+import FirstApproach.*;
+
 import java.util.List;
 
 public class QueryBuilderMain {
 
     public static void main(String[] args) {
-        Filter filter = new Filter(
+        FirstApproach.Filter filter = new FirstApproach.Filter(
             List.of(
-                new FilterCriteria("alertEntity", Operator.EQ, "PATIENT_PLANNER"),
-                new FilterCriteria("createDateCrieria", Operator.OR,
+                new FirstApproach.FilterCriteria("alertEntity", FirstApproach.Operator.EQ, "PATIENT_PLANNER"),
+                new FirstApproach.FilterCriteria("createDateCrieria", FirstApproach.Operator.OR,
                     List.of(
-                        new FilterCriteria("createDate", Operator.LTE, "31 Aug"),
+                        new FirstApproach.FilterCriteria("createDate", FirstApproach.Operator.LTE, "31 Aug"),
                         new FilterCriteria("createDate", Operator.IS_NULL, null)
                     )
                 )

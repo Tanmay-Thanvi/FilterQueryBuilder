@@ -1,3 +1,5 @@
+package SecondApproach;
+
 public enum Operator{
     EQ,
     NEQ,
