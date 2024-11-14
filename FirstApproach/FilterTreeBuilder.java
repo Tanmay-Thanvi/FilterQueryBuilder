@@ -1,5 +1,7 @@
 package FirstApproach;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FilterTreeBuilder {
@@ -79,22 +81,41 @@ public class FilterTreeBuilder {
   public FilterTreeNode buildParseTree(FilterCriteria filterCriteria) {
     FilterTreeNode root = null;
 
-    if (LogicalOperators.operators.contains(filterCriteria.getOperator())){
-      if (isListOfFilterCriterias(filterCriteria.getValue())){
-        root = new FilterTreeNode(filterCriteria.getOperator().name());
+    // Check if it's a logical operator
+    if (LogicalOperators.operators.contains(filterCriteria.getOperator())) {
+      if (filterCriteria.getKey().split(",").length == 1) {
+        if (isListOfFilterCriterias(filterCriteria.getValue())) {
+          root = new FilterTreeNode(filterCriteria.getOperator().name());
 
-        List<?> tempList = (List<?>) filterCriteria.getValue();
-        List<FilterCriteria> filterCriterias = (List<FilterCriteria>) tempList;
+          List<?> tempList = (List<?>) filterCriteria.getValue();
+          List<FilterCriteria> filterCriterias = (List<FilterCriteria>) tempList;
 
-        for (FilterCriteria theFilterCriteria : filterCriterias) {
-          root.addChild(buildParseTree(theFilterCriteria));
+          for (FilterCriteria theFilterCriteria : filterCriterias) {
+            root.addChild(buildParseTree(theFilterCriteria));
+          }
+        } else {
+          throw new RuntimeException("Err: FilterCriteria with a logical operator must have List<FilterCriteria> as its value.");
         }
-
       } else {
-        throw new RuntimeException("Err : FilterCriteria having Logical Operator always require List<FilterCriteria> as value");
+        throw new RuntimeException("Err: FilterCriteria with a logical operator cannot have multiple keys separated by commas.");
       }
     } else {
-      root = new FilterTreeNode(getFilterQuery(filterCriteria));
+      // Handle single key or comma-separated keys
+      String[] keys = filterCriteria.getKey().split(",");
+      if (keys.length == 1) {
+        root = new FilterTreeNode(getFilterQuery(filterCriteria));
+      } else {
+        // Multiple keys, so treat this as an OR group
+        root = new FilterTreeNode("OR");  // Create an OR root for these keys
+        Operator operator = filterCriteria.getOperator();
+        Object value = filterCriteria.getValue();
+
+        for (String key : keys) {
+          FilterCriteria singleKeyCriteria = new FilterCriteria(key, operator, value);
+          FilterTreeNode childNode = buildParseTree(singleKeyCriteria);
+          root.addChild(childNode);
+        }
+      }
     }
 
     return root;

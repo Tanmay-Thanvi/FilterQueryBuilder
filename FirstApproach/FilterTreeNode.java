@@ -2,6 +2,8 @@ package FirstApproach;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FilterTreeNode {
     private String NodeValue;
@@ -21,7 +23,11 @@ public class FilterTreeNode {
     // ToString
     @Override
     public String toString() {
-        return "FilterTreeNode [nodeValue=" + NodeValue.toString() + ", children=" + children.toString() + "]";
+        return "FilterTreeNode [nodeValue=" + NodeValue.toString() + ",\nchildren=" +
+            children.stream()
+                .filter(Objects::nonNull)  // Skip any null children
+                .map(Object::toString)  // Convert each child to a String
+                .collect(Collectors.joining(", ")) + "]";
     }
 
     // Getters and Setters
