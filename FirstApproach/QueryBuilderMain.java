@@ -7,13 +7,18 @@ public class QueryBuilderMain {
     public static void main(String[] args) {
         Filter filter = new Filter(
             List.of(
-                new FilterCriteria("alertEntity", Operator.EQ, "PATIENT_PLANNER"),
-                new FilterCriteria("createDateCrieria", Operator.OR,
+                new FilterCriteria("startDate1", Operator.GT, "1 Aug"),
+                new FilterCriteria("endDate2", Operator.LT, "31 Aug"),
+                new FilterCriteria("endDate3", Operator.LT, "1 Oct"),
+                new FilterCriteria("endDate4", Operator.LT, "31 Oct"),
+                new FilterCriteria("CrieriaList5", Operator.OR,
                     List.of(
-                        new FilterCriteria("createDate", Operator.LTE, "31 Aug"),
-                        new FilterCriteria("createDate", Operator.IS_NULL, null)
+                        new FilterCriteria("OrCrieriaList1", Operator.EQ, "VALUE1"),
+                        new FilterCriteria("OrCrieriaList2", Operator.EQ, "VALUE2")
                     )
-                )
+                ),
+                new FilterCriteria("NotCriteriaList", Operator.NOT, List.of(new FilterCriteria("endDate6", Operator.LT, "31 Oct"))),
+                new FilterCriteria("endDate", Operator.IS_NULL, null)
             )
         );
 
