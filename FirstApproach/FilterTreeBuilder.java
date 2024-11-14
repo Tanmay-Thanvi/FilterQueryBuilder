@@ -95,7 +95,7 @@ public class FilterTreeBuilder {
           throw new RuntimeException("Err: FilterCriteria with a logical operator must have List<FilterCriteria> as its value.");
         }
       } else {
-        throw new RuntimeException("Err: FilterCriteria with a logical operator cannot have multiple keys separated by commas.");
+        throw new RuntimeException("Err: FilterCriteria with a logical operator cannot have multiple keys.");
       }
     } else {
       // Handle single key or comma-separated keys
