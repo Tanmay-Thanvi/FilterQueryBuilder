@@ -9,16 +9,14 @@ public class QueryBuilderMain {
             List.of(
                 new FilterCriteria("startDate1", Operator.GT, "Value 1"),
                 new FilterCriteria("endDate2", Operator.LT, "Value 2"),
-                new FilterCriteria("endDate3", Operator.LT, "Value 3"),
-                new FilterCriteria("endDate4", Operator.LT, "Value 4"),
-                new FilterCriteria("CriteriaList5", Operator.OR,
+                new FilterCriteria("NotCriteriaList3", Operator.NOT, List.of(new FilterCriteria("endDate3", Operator.LT, "Value 3"))),
+                new FilterCriteria("endDate4,endDate5", Operator.IS_NULL, "null"),
+                new FilterCriteria("CriteriaList6", Operator.OR,
                     List.of(
-                        new FilterCriteria("OrCriteriaList1", Operator.EQ, "VALUE5-1"),
-                        new FilterCriteria("OrCriteriaList2", Operator.EQ, "VALUE5-2")
+                        new FilterCriteria("OrCriteriaList6a", Operator.EQ, "VALUE5-6a"),
+                        new FilterCriteria("OrCriteriaList6b", Operator.EQ, "VALUE5-6b")
                     )
-                ),
-                new FilterCriteria("NotCriteriaList6", Operator.NOT, List.of(new FilterCriteria("endDate6", Operator.LT, "Value 6"))),
-                new FilterCriteria("endDate7,endDate8", Operator.IS_NULL, "null")
+                )
             )
         );
 
