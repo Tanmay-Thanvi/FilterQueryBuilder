@@ -16,10 +16,5 @@ public enum Operator{
     IS_NOT_NULL,
     ENDS_WITH,
     NOT_CONTAINS,
-    NOT_IN_RANGE,
-
-    // Logical Operators
-    AND,
-    OR,
-    NOT;
+    NOT_IN_RANGE
 }
